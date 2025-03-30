@@ -24,7 +24,15 @@
       "continue": true
     },
     {
-      "src": "/(.*)\\.(js|css|json|txt|html|ico|svg)$",
+      "src": "/(.*)\\.(js|mjs)$",
+      "headers": {
+        "content-type": "application/javascript",
+        "cache-control": "public, max-age=31536000, immutable"
+      },
+      "continue": true
+    },
+    {
+      "src": "/(.*)\\.(css|json|txt|html|ico|svg)$",
       "headers": {
         "cache-control": "public, max-age=31536000, immutable"
       },
