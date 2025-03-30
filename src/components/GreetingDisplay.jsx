@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion'
+import { useState } from 'react'
+import Snackbar from './Snackbar'
 
 const GreetingDisplay = ({ greeting }) => {
+  const [showSnackbar, setShowSnackbar] = useState(false)
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -30,8 +33,11 @@ const GreetingDisplay = ({ greeting }) => {
             document.execCommand('copy');
             document.body.removeChild(textarea);
             
-            // Show a copy notification (you could add state for this)
-            alert('Greeting copied to clipboard!');
+            // Show the snackbar
+            setShowSnackbar(true);
+            
+            // Hide the snackbar after 3 seconds
+            setTimeout(() => setShowSnackbar(false), 3000);
           }}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -40,6 +46,12 @@ const GreetingDisplay = ({ greeting }) => {
           Copy Greeting
         </motion.button>
       </div>
+      
+      <Snackbar
+        message="Greeting copied to clipboard!"
+        isVisible={showSnackbar}
+        onClose={() => setShowSnackbar(false)}
+      />
     </motion.div>
   )
 }
