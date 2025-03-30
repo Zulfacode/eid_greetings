@@ -24,7 +24,10 @@ export const useGreeting = () => {
       }
 
       const data = await response.json();
-      return data.choices[0].message.content.trim();
+      if (!data.greeting) {
+        throw new Error('Invalid response format from server');
+      }
+      return data.greeting;
     }
   });
 
