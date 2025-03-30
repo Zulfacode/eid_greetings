@@ -12,14 +12,11 @@ export default defineConfig({
         manualChunks: undefined,
         assetFileNames: 'assets/[name].[hash][extname]',
         chunkFileNames: 'assets/[name].[hash].js',
-        entryFileNames: 'assets/[name].[hash].js',
-        format: 'es'
+        entryFileNames: 'assets/[name].[hash].js'
       }
     },
-    target: 'esnext',
-    modulePreload: {
-      polyfill: true
-    }
+    target: 'es2015',
+    modulePreload: false
   },
   server: {
     port: 3000,
