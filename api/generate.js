@@ -22,7 +22,7 @@ export default async function handler(req) {
       ? `Generate a formal Eid greeting for ${name} in ${languageType}. The greeting should be respectful and traditional.`
       : `Generate a humorous Eid greeting for ${name} in ${languageType}. The greeting should be light-hearted and include some fun elements.`;
 
-    if (!process.env.OPENAI_API_KEY) {
+    if (!process.env.VITE_OPENAI_API_KEY) {
       return new Response(JSON.stringify({ error: 'OpenAI API key is not configured' }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' }
@@ -33,7 +33,7 @@ export default async function handler(req) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+        'Authorization': `Bearer ${process.env.VITE_OPENAI_API_KEY}`
       },
       body: JSON.stringify({
         model: 'gpt-4',
