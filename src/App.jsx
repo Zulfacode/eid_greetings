@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import { Analytics } from '@vercel/analytics/react'
 import GreetingForm from './components/GreetingForm'
 import GreetingDisplay from './components/GreetingDisplay'
 import Header from './components/Header'
@@ -61,6 +62,7 @@ function App() {
       </main>
       
       <Footer />
+      <Analytics />
     </div>
   )
 }
