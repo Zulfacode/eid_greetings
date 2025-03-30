@@ -22,6 +22,13 @@ export default async function handler(req) {
       ? `Generate a formal Eid greeting for ${name} in ${languageType}. The greeting should be respectful and traditional.`
       : `Generate a humorous Eid greeting for ${name} in ${languageType}. The greeting should be light-hearted and include some fun elements.`;
 
+    if (!process.env.OPENAI_API_KEY) {
+      return new Response(JSON.stringify({ error: 'OpenAI API key is not configured' }), {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -38,6 +45,17 @@ export default async function handler(req) {
         max_tokens: 200
       })
     });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      return new Response(JSON.stringify({ 
+        error: 'OpenAI API request failed', 
+        details: errorData.error?.message || 'Unknown error'
+      }), {
+        status: response.status,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
 
     const data = await response.json();
 
